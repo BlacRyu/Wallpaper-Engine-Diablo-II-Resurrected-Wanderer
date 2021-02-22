@@ -1,0 +1,137 @@
+{
+	"controlpoint" : 
+	[
+		{
+			"flags" : 0,
+			"id" : 0,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 1,
+			"id" : 1,
+			"locktopointer" : true,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 2,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 3,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 4,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 5,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 6,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 7,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		}
+	],
+	"emitter" : 
+	[
+		{
+			"distancemax" : "1920 1080 0",
+			"id" : 7,
+			"name" : "boxrandom",
+			"rate" : 10
+		}
+	],
+	"flags" : 1,
+	"initializer" : 
+	[
+		{
+			"id" : 2,
+			"max" : 24,
+			"min" : 16,
+			"name" : "lifetimerandom"
+		},
+		{
+			"exponent" : 3,
+			"id" : 3,
+			"max" : 120,
+			"min" : 20,
+			"name" : "sizerandom"
+		},
+		{
+			"id" : 4,
+			"max" : "20 5 0",
+			"min" : "-20 -20 0",
+			"name" : "velocityrandom"
+		},
+		{
+			"id" : 5,
+			"max" : "199 169 130",
+			"min" : "255 73 34",
+			"name" : "colorrandom"
+		},
+		{
+			"id" : 6,
+			"max" : 0.14999999999999999,
+			"min" : 0.10000000000000001,
+			"name" : "alpharandom"
+		}
+	],
+	"material" : "materials/particle/halo_2_1_1.json",
+	"maxcount" : 1000,
+	"operator" : 
+	[
+		{
+			"drag" : 0.20000000000000001,
+			"gravity" : "0 -5 0",
+			"id" : 8,
+			"name" : "movement"
+		},
+		{
+			"fadeintime" : 0.25,
+			"fadeouttime" : 0.25,
+			"id" : 9,
+			"name" : "alphafade"
+		},
+		{
+			"id" : 10,
+			"name" : "turbulence",
+			"scale" : 0.0012999998442828654,
+			"speedmax" : 10,
+			"speedmin" : 5,
+			"timescale" : 100
+		},
+		{
+			"endtime" : 0.80000000000000004,
+			"endvalue" : "0.615686274509804 0.3333333333333333 0.3333333333333333",
+			"id" : 11,
+			"name" : "colorchange",
+			"starttime" : 0.20000000000000001
+		}
+	],
+	"renderer" : 
+	[
+		{
+			"id" : 1,
+			"name" : "sprite"
+		}
+	],
+	"starttime" : 5
+}

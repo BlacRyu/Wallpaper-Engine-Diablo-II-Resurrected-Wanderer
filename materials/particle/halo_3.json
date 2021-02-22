@@ -1,0 +1,21 @@
+{
+	"passes" : 
+	[
+		{
+			"blending" : "normal",
+			"combos" : 
+			{
+				"REFRACT" : 1
+			},
+			"constantshadervalues" : 
+			{
+				"ui_editor_properties_refract_amount" : 0.014999999999999999
+			},
+			"cullmode" : "nocull",
+			"depthtest" : "disabled",
+			"depthwrite" : "disabled",
+			"shader" : "genericparticle",
+			"textures" : [ null, "particle/vfx_refraction_n" ]
+		}
+	]
+}

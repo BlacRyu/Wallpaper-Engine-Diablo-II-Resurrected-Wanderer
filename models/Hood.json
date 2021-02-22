@@ -1,0 +1,5 @@
+{
+	"autosize" : true,
+	"material" : "materials/Hood.json",
+	"puppet" : "models/Hood_puppet.mdl"
+}

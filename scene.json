@@ -1,0 +1,1001 @@
+{
+	"camera" : 
+	{
+		"center" : "0.00000 0.00000 -1.00000",
+		"eye" : "0.00000 0.00000 0.00000",
+		"up" : "0.00000 1.00000 0.00000"
+	},
+	"general" : 
+	{
+		"ambientcolor" : "0.30000 0.30000 0.30000",
+		"bloom" : false,
+		"bloomhdrfeather" : 0.10000000149011612,
+		"bloomhdrscatter" : 1.6189999580383301,
+		"bloomhdrstrength" : 2.0,
+		"bloomhdrthreshold" : 1.0,
+		"bloomstrength" : 2.0,
+		"bloomthreshold" : 0.64999997615814209,
+		"camerafade" : true,
+		"cameraparallax" : true,
+		"cameraparallaxamount" : 0.10000000149011612,
+		"cameraparallaxdelay" : 0.10000000149011612,
+		"cameraparallaxmouseinfluence" : 0.10000000149011612,
+		"camerapreview" : true,
+		"camerashake" : false,
+		"camerashakeamplitude" : 0.5,
+		"camerashakeroughness" : 1.0,
+		"camerashakespeed" : 3.0,
+		"clearcolor" : "0.00000 0.00000 0.00000",
+		"clearenabled" : true,
+		"farz" : 10000.0,
+		"fov" : 50.0,
+		"hdr" : false,
+		"nearz" : 0.0099999997764825821,
+		"orthogonalprojection" : 
+		{
+			"height" : 2160,
+			"width" : 3840
+		},
+		"skylightcolor" : "0.30000 0.30000 0.30000",
+		"zoom" : 
+		{
+			"script" : "'use strict';\n\n// Zoom in when mouse is over the eyes\n\nconst maxSpeed = 0.4;\nconst accel = 0.6;\nconst zoomFactor = 0.65;\n\n/**\n * @param {Number} value - for property 'zoom'\n * @return {Number} - update current property value\n */\nexport function update(value) {\n\tlet mousePos = input.cursorScreenPosition.divide(engine.screenResolution);\n\tlet target1 = new Vec2(0.43, 0.44).subtract(mousePos);\n\tlet target2 = new Vec2(0.57, 0.44).subtract(mousePos);\n\ttarget1 = Math.abs(target1.x) + Math.abs(target1.y);\n\ttarget2 = Math.abs(target2.x) + Math.abs(target2.y);\n\t// console.log(`${target1} - ${target2}`);\n\tlet target = Math.min(target1, target2);\n\ttarget = Math.max(2 * (zoomFactor - target), 1.0);\n\n\tlet speed = (target-value) * accel;\n\tspeed = Math.max(Math.min(speed, maxSpeed), -maxSpeed);\n\n\tvalue = value + speed * engine.frametime;\n\treturn value;\n}\n",
+			"value" : 1.0
+		}
+	},
+	"objects" : 
+	[
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : 
+			{
+				"animation" : 
+				{
+					"c0" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 8,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"c1" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 8,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"c2" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 8,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : -0.00263
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0.0020899999999999998
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"options" : 
+					{
+						"fps" : 2.8999999999999999,
+						"length" : 29,
+						"mode" : "mirror"
+					},
+					"relative" : true
+				},
+				"value" : "0.00000 0.00000 0.00000"
+			},
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"effects" : 
+			[
+				{
+					"file" : "effects/pulse/effect.json",
+					"id" : 364,
+					"name" : "Eye glow",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 7
+							},
+							"constantshadervalues" : 
+							{
+								"amount" : 0.40000000000000002,
+								"bounds" : "0 1",
+								"noiseamount" : 0.29999999999999999,
+								"noisespeed" : 0.040000000000000001,
+								"power" : 1,
+								"speed" : 1,
+								"tinthigh" : "1 0.08627450980392157 0",
+								"tintlow" : "1 1 1"
+							},
+							"id" : 365,
+							"textures" : 
+							[
+								null,
+								"util/noise",
+								"masks/pulse_mask_ee0d9bbc6d0516b8583c8fb3e841485c0b7ec4e8"
+							]
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/pulse/effect.json",
+					"id" : 54,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 4
+							},
+							"constantshadervalues" : 
+							{
+								"amount" : 0.050000000000000003,
+								"bounds" : "0.00000 1.00000",
+								"noiseamount" : 0.050000000000000003,
+								"tinthigh" : "0.28627450980392155 0 0",
+								"tintlow" : "1 1 1"
+							},
+							"id" : 55,
+							"textures" : [ null, "util/noise" ]
+						}
+					],
+					"visible" : false
+				}
+			],
+			"id" : 13,
+			"image" : "models/Face.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Face",
+			"origin" : 
+			{
+				"animation" : 
+				{
+					"c0" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 10,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 15,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 4.5766599999999471
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"c1" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 10,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : -10.147089999999992
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 15,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : -12.735470000000021
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : -9.690339999999992
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"c2" : 
+					[
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 0,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 10,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 15,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 20,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						},
+						{
+							"back" : 
+							{
+								"enabled" : true,
+								"x" : -1,
+								"y" : 0
+							},
+							"frame" : 29,
+							"front" : 
+							{
+								"enabled" : true,
+								"x" : 1,
+								"y" : 0
+							},
+							"lockangle" : true,
+							"locklength" : true,
+							"value" : 0
+						}
+					],
+					"options" : 
+					{
+						"children" : [],
+						"fps" : 3.625,
+						"length" : 29,
+						"mode" : "loop"
+					},
+					"relative" : true
+				},
+				"value" : "1920.00000 512.00000 0.00000"
+			},
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "1.00000 1.00000 1.00000",
+			"size" : "4096.00000 4096.00000",
+			"solid" : true,
+			"visible" : true
+		},
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : "0.00000 0.00000 0.00000",
+			"animationlayers" : 
+			[
+				{
+					"additive" : false,
+					"animation" : 198,
+					"blend" : 5.0,
+					"id" : 38,
+					"name" : "Right sway",
+					"rate" : 0.5,
+					"visible" : true
+				}
+			],
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"id" : 19,
+			"image" : "models/Hood.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Hood",
+			"origin" : "1920.00000 512.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "1.00000 1.00000 1.00000",
+			"size" : "4096.00000 4096.00000",
+			"solid" : true,
+			"visible" : 
+			{
+				"script" : "'use strict';\n\n// Enables play/pause in editor",
+				"value" : false
+			}
+		},
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : "0.00000 0.00000 0.00000",
+			"animationlayers" : 
+			[
+				{
+					"additive" : false,
+					"animation" : 198,
+					"blend" : 1.0,
+					"id" : 160,
+					"name" : "Hood sway right",
+					"rate" : 1.0,
+					"visible" : true
+				},
+				{
+					"additive" : false,
+					"animation" : 165,
+					"blend" : 1.0,
+					"id" : 175,
+					"name" : "Hood sway left",
+					"rate" : 1.1299999952316284,
+					"visible" : true
+				}
+			],
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"effects" : 
+			[
+				{
+					"file" : "effects/pulse/effect.json",
+					"id" : 64,
+					"name" : "Red tint",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 28
+							},
+							"constantshadervalues" : 
+							{
+								"amount" : 0,
+								"bounds" : "0.00000 1.00000",
+								"noiseamount" : 0.5,
+								"tinthigh" : "0.9647058823529412 0.4745098039215686 0.4745098039215686"
+							},
+							"id" : 65,
+							"textures" : [ null, "util/noise" ]
+						}
+					],
+					"visible" : false
+				}
+			],
+			"id" : 158,
+			"image" : "models/Hood.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Hood",
+			"origin" : "1920.00000 512.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "1.00000 1.00000 1.00000",
+			"size" : "4096.00000 4096.00000",
+			"solid" : true,
+			"visible" : 
+			{
+				"script" : "'use strict';\n\n// Enables play/pause in editor",
+				"value" : true
+			}
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 81,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Falling dust",
+			"origin" : "1920.00000 1200.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/falling_dust.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : true
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 168,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Falling embers",
+			"origin" : "1920.00000 1200.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/falling_embers.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : true
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 180,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Falling embers bokeh",
+			"origin" : "1920.00000 1200.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/falling_embers.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : true
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 1124,
+			"instanceoverride" : 
+			{
+				"controlpoint1" : "0.00000 512.00000 0.00000",
+				"id" : 1125
+			},
+			"locktransforms" : false,
+			"name" : "Rising embers",
+			"origin" : "1920.00000 -128.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/rising_embers.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : true
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 288,
+			"instanceoverride" : 
+			{
+				"controlpoint2" : "0.00000 1024.00000 0.00000",
+				"id" : 289
+			},
+			"locktransforms" : false,
+			"name" : "Rising side embers",
+			"origin" : "1920.00000 -64.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/Rising_side_embers.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"angles" : "0.00000 0.00000 0.08727",
+			"id" : 698,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Wildfire",
+			"origin" : "3035.65747 -30.12979 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/presets/wildfire.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"angles" : "0.00000 0.00000 -0.08727",
+			"id" : 866,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Wildfire",
+			"origin" : "737.01758 -26.79364 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/presets/wildfire.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 982,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Wildfire",
+			"origin" : "1945.82568 -66.53546 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/presets/wildfire.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 1516,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "Heat_waves",
+			"origin" : "1920.00000 0.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/Heat_waves.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"effects" : 
+			[
+				{
+					"file" : "effects/filmgrain/effect.json",
+					"id" : 60,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 1
+							},
+							"constantshadervalues" : 
+							{
+								"exponent" : 1,
+								"scale" : 20,
+								"strength" : 0.10000000000000001
+							},
+							"id" : 61,
+							"textures" : [ null, "util/noise" ]
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/pulse/effect.json",
+					"id" : 69,
+					"name" : "Pulsing red tint",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 28
+							},
+							"constantshadervalues" : 
+							{
+								"amount" : 0.125,
+								"bounds" : "0 1",
+								"noiseamount" : 0.25,
+								"noisespeed" : 0.040000000000000001,
+								"speed" : 0.75,
+								"tinthigh" : "0.9647058823529412 0.4745098039215686 0.4745098039215686"
+							},
+							"id" : 0,
+							"textures" : [ null, "util/noise" ]
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/waterripple/effect.json",
+					"id" : 438,
+					"name" : "Heat Waves",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"scrollspeed" : 0.5
+							},
+							"id" : 439,
+							"textures" : 
+							[
+								null,
+								"masks/waterripple_mask_e7c24e12109c16ce074e92e388ea2d48c1301419",
+								"effects/waterripplenormal"
+							]
+						}
+					],
+					"visible" : true
+				}
+			],
+			"id" : 57,
+			"image" : "models/util/fullscreenlayer.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Post processing",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"solid" : true,
+			"visible" : true
+		},
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : "0.00000 0.00000 0.00000",
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"id" : 195,
+			"image" : "models/util/solidlayer.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Solid",
+			"origin" : "2185.67969 1215.92908 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "1.00000 1.00000 1.00000",
+			"size" : "8.00000 8.00000",
+			"solid" : true,
+			"visible" : false
+		}
+	],
+	"version" : 1
+}
