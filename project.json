@@ -1,4 +1,5 @@
 {
+	"contentrating" : "Everyone",
 	"file" : "scene.json",
 	"general" : 
 	{
@@ -13,6 +14,8 @@
 			}
 		}
 	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Unspecified" ],
 	"title" : "Diablo II Resurrection - The Wanderer",
 	"type" : "scene",
 	"version" : 0

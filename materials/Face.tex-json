@@ -8,6 +8,6 @@
 	"cropy0" : 495,
 	"cropy1" : 2756,
 	"format" : "dxt5",
-	"nomip" : true,
+	"nomip" : false,
 	"nonpoweroftwo" : true
 }

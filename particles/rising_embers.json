@@ -11,19 +11,19 @@
 			"flags" : 0,
 			"id" : 1,
 			"locktopointer" : true,
-			"offset" : "0 1024 0"
+			"offset" : "-128 512 0"
 		},
 		{
 			"flags" : 0,
 			"id" : 2,
 			"locktopointer" : false,
-			"offset" : "0 0 0"
+			"offset" : "128 512 0"
 		},
 		{
 			"flags" : 0,
 			"id" : 3,
 			"locktopointer" : false,
-			"offset" : "0 0 0"
+			"offset" : "0 1024 0"
 		},
 		{
 			"flags" : 0,
@@ -56,7 +56,7 @@
 			"distancemax" : "1920 0 0",
 			"id" : 7,
 			"name" : "boxrandom",
-			"rate" : 100
+			"rate" : 80
 		}
 	],
 	"flags" : 1,
@@ -77,8 +77,8 @@
 		},
 		{
 			"id" : 4,
-			"max" : "20 250 0",
-			"min" : "-20 100 0",
+			"max" : "20 400 0",
+			"min" : "-20 200 0",
 			"name" : "velocityrandom"
 		},
 		{
@@ -100,8 +100,8 @@
 	"operator" : 
 	[
 		{
-			"drag" : 0.050000000000000003,
-			"gravity" : "0 100 0",
+			"drag" : 0.25,
+			"gravity" : "0 200 0",
 			"id" : 8,
 			"name" : "movement"
 		},
@@ -128,11 +128,29 @@
 		},
 		{
 			"controlpoint" : 1,
+			"distanceinner" : 0,
+			"distanceouter" : 500,
 			"id" : 12,
+			"name" : "vortex",
+			"speedinner" : 600,
+			"speedouter" : 0
+		},
+		{
+			"axis" : "0 0 -1",
+			"controlpoint" : 2,
+			"distanceinner" : 0,
+			"distanceouter" : 500,
+			"id" : 13,
+			"name" : "vortex",
+			"speedinner" : 600
+		},
+		{
+			"controlpoint" : 3,
+			"id" : 14,
 			"name" : "controlpointattract",
 			"origin" : "0 0 0",
-			"scale" : -512,
-			"threshold" : 1024
+			"scale" : -256,
+			"threshold" : 1200
 		}
 	],
 	"renderer" : 
@@ -144,5 +162,5 @@
 			"name" : "spritetrail"
 		}
 	],
-	"starttime" : 5
+	"starttime" : 3
 }

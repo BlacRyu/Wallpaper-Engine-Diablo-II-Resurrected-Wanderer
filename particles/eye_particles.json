@@ -1,0 +1,150 @@
+{
+	"controlpoint" : 
+	[
+		{
+			"flags" : 0,
+			"id" : 0,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 1,
+			"locktopointer" : true,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 2,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 3,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 4,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 5,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 6,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 7,
+			"locktopointer" : false,
+			"offset" : "0 0 0"
+		}
+	],
+	"emitter" : 
+	[
+		{
+			"controlpoint" : 1,
+			"directions" : "0.5 0.5 1",
+			"distancemax" : 16,
+			"id" : 7,
+			"name" : "sphererandom",
+			"sign" : "-1 1 -1",
+			"speedmax" : 100,
+			"speedmin" : 100
+		},
+		{
+			"controlpoint" : 2,
+			"distancemax" : 16,
+			"id" : 8,
+			"name" : "sphererandom"
+		}
+	],
+	"flags" : 1,
+	"initializer" : 
+	[
+		{
+			"id" : 2,
+			"max" : 6,
+			"min" : 4,
+			"name" : "lifetimerandom"
+		},
+		{
+			"exponent" : 3,
+			"id" : 3,
+			"max" : 20,
+			"min" : 8,
+			"name" : "sizerandom"
+		},
+		{
+			"id" : 4,
+			"max" : "0 0 0",
+			"min" : "0 0 0",
+			"name" : "velocityrandom"
+		},
+		{
+			"exponent" : 2,
+			"id" : 5,
+			"max" : "238 203 156",
+			"min" : "255 73 34",
+			"name" : "colorrandom"
+		},
+		{
+			"id" : 6,
+			"max" : 0.59999999999999998,
+			"min" : 0.40000000000000002,
+			"name" : "alpharandom"
+		}
+	],
+	"material" : "materials/particle/halo_2_1_3_1.json",
+	"maxcount" : 5000,
+	"operator" : 
+	[
+		{
+			"drag" : 0.050000000000000003,
+			"gravity" : "0 10 0",
+			"id" : 9,
+			"name" : "movement"
+		},
+		{
+			"fadeintime" : 0.25,
+			"fadeouttime" : 0.25,
+			"id" : 10,
+			"name" : "alphafade"
+		},
+		{
+			"id" : 11,
+			"name" : "turbulence",
+			"scale" : 0.0012999998442828654,
+			"speedmax" : 2,
+			"speedmin" : 1,
+			"timescale" : 100
+		},
+		{
+			"endtime" : 0.80000000000000004,
+			"endvalue" : "0.5450980392156862 0.27450980392156865 0.27450980392156865",
+			"id" : 12,
+			"name" : "colorchange",
+			"starttime" : 0.20000000000000001
+		}
+	],
+	"renderer" : 
+	[
+		{
+			"id" : 1,
+			"length" : 0.040000000000000001,
+			"maxlength" : 5,
+			"name" : "spritetrail"
+		}
+	],
+	"starttime" : 5
+}
