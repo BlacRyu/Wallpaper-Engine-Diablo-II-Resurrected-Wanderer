@@ -17,9 +17,9 @@
 		"bloomthreshold" : 0.64999997615814209,
 		"camerafade" : true,
 		"cameraparallax" : false,
-		"cameraparallaxamount" : 0.10000000149011612,
-		"cameraparallaxdelay" : 2.75,
-		"cameraparallaxmouseinfluence" : 0.10000000149011612,
+		"cameraparallaxamount" : 0.0099999997764825821,
+		"cameraparallaxdelay" : 1.0,
+		"cameraparallaxmouseinfluence" : 1.0,
 		"camerapreview" : true,
 		"camerashake" : false,
 		"camerashakeamplitude" : 0.5,
@@ -524,6 +524,55 @@
 						}
 					],
 					"visible" : true
+				},
+				{
+					"file" : "effects/waterflow/effect.json",
+					"id" : 93,
+					"name" : "Eye flow",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"speed" : 0.25,
+								"strength" : 1
+							},
+							"id" : 94,
+							"textures" : 
+							[
+								null,
+								"masks/waterflow_mask_e3c57b1acc926990acd97f240abcc41d1a37f712",
+								"effects/waterflowphase"
+							]
+						}
+					],
+					"visible" : false
+				},
+				{
+					"file" : "effects/waterripple/effect.json",
+					"id" : 118,
+					"name" : "Eye fluidity",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"animationspeed" : 0.050000000000000003,
+								"ripplestrength" : 0.074999999999999997,
+								"scale" : 5,
+								"scrolldirection" : -3.1415926535897931,
+								"scrollspeed" : 0.050000000000000003
+							},
+							"id" : 119,
+							"textures" : 
+							[
+								null,
+								"masks/waterripple_mask_b35a6c0fbb44d8c40eb518aba996554de019ec08",
+								"effects/waterripplenormal"
+							]
+						}
+					],
+					"visible" : true
 				}
 			],
 			"id" : 13,
@@ -838,8 +887,8 @@
 			"instanceoverride" : 
 			{
 				"alpha" : 0.60000002384185791,
-				"controlpoint1" : "-282.84644 71.54919 0.00000",
-				"controlpoint2" : "263.03760 72.45874 0.00000",
+				"controlpoint1" : "-300.59900 77.94030 0.00000",
+				"controlpoint2" : "274.39941 80.97998 0.00000",
 				"count" : 0.40000000596046448,
 				"id" : 1524,
 				"lifetime" : 1.3999999761581421,
@@ -1343,7 +1392,7 @@
 				},
 				"value" : "1920.00000 512.00000 0.00000"
 			},
-			"parallaxDepth" : "1.00000 1.00000",
+			"parallaxDepth" : "1.25000 1.25000",
 			"perspective" : false,
 			"scale" : "1.00000 1.00000 1.00000",
 			"size" : "4096.00000 4096.00000",

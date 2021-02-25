@@ -55,7 +55,7 @@
 		{
 			"controlpoint" : 1,
 			"directions" : "1 0.4 0",
-			"distancemax" : 64,
+			"distancemax" : 100,
 			"id" : 7,
 			"name" : "sphererandom",
 			"rate" : 60,
@@ -65,7 +65,7 @@
 		{
 			"controlpoint" : 2,
 			"directions" : "1 0.4 0",
-			"distancemax" : 64,
+			"distancemax" : 100,
 			"id" : 8,
 			"name" : "sphererandom",
 			"rate" : 60
@@ -83,15 +83,15 @@
 		{
 			"exponent" : 3,
 			"id" : 3,
-			"max" : 16,
+			"max" : 17,
 			"min" : 8,
 			"name" : "sizerandom"
 		},
 		{
 			"exponent" : 50,
 			"id" : 4,
-			"max" : "0 -160 0",
-			"min" : "0 -40 0",
+			"max" : "0 -200 0",
+			"min" : "0 -60 0",
 			"name" : "velocityrandom"
 		},
 		{
@@ -113,8 +113,8 @@
 	"operator" : 
 	[
 		{
-			"drag" : 0.050000000000000003,
-			"gravity" : "0 20 0",
+			"drag" : 0.69999999999999996,
+			"gravity" : "0 30 0",
 			"id" : 9,
 			"name" : "movement"
 		},
@@ -143,16 +143,16 @@
 			"id" : 13,
 			"name" : "controlpointattract",
 			"origin" : "0 0 0",
-			"scale" : -50,
-			"threshold" : 512
+			"scale" : -70,
+			"threshold" : 600
 		}
 	],
 	"renderer" : 
 	[
 		{
 			"id" : 1,
-			"length" : 0.040000000000000001,
-			"maxlength" : 5,
+			"length" : 0.029999999999999999,
+			"maxlength" : 4,
 			"name" : "spritetrail"
 		}
 	],
