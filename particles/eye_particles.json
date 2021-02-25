@@ -11,13 +11,13 @@
 			"flags" : 0,
 			"id" : 1,
 			"locktopointer" : true,
-			"offset" : "0 0 0"
+			"offset" : "-128 0 0"
 		},
 		{
 			"flags" : 0,
 			"id" : 2,
 			"locktopointer" : false,
-			"offset" : "0 0 0"
+			"offset" : "128 0 0"
 		},
 		{
 			"flags" : 0,
@@ -54,19 +54,21 @@
 	[
 		{
 			"controlpoint" : 1,
-			"directions" : "0.5 0.5 1",
-			"distancemax" : 16,
+			"directions" : "1 0.4 0",
+			"distancemax" : 64,
 			"id" : 7,
 			"name" : "sphererandom",
-			"sign" : "-1 1 -1",
-			"speedmax" : 100,
-			"speedmin" : 100
+			"rate" : 60,
+			"speedmax" : 0,
+			"speedmin" : 0
 		},
 		{
 			"controlpoint" : 2,
-			"distancemax" : 16,
+			"directions" : "1 0.4 0",
+			"distancemax" : 64,
 			"id" : 8,
-			"name" : "sphererandom"
+			"name" : "sphererandom",
+			"rate" : 60
 		}
 	],
 	"flags" : 1,
@@ -74,21 +76,22 @@
 	[
 		{
 			"id" : 2,
-			"max" : 6,
-			"min" : 4,
+			"max" : 3,
+			"min" : 2,
 			"name" : "lifetimerandom"
 		},
 		{
 			"exponent" : 3,
 			"id" : 3,
-			"max" : 20,
+			"max" : 16,
 			"min" : 8,
 			"name" : "sizerandom"
 		},
 		{
+			"exponent" : 50,
 			"id" : 4,
-			"max" : "0 0 0",
-			"min" : "0 0 0",
+			"max" : "0 -160 0",
+			"min" : "0 -40 0",
 			"name" : "velocityrandom"
 		},
 		{
@@ -106,12 +109,12 @@
 		}
 	],
 	"material" : "materials/particle/halo_2_1_3_1.json",
-	"maxcount" : 5000,
+	"maxcount" : 10000,
 	"operator" : 
 	[
 		{
 			"drag" : 0.050000000000000003,
-			"gravity" : "0 10 0",
+			"gravity" : "0 20 0",
 			"id" : 9,
 			"name" : "movement"
 		},
@@ -135,6 +138,13 @@
 			"id" : 12,
 			"name" : "colorchange",
 			"starttime" : 0.20000000000000001
+		},
+		{
+			"id" : 13,
+			"name" : "controlpointattract",
+			"origin" : "0 0 0",
+			"scale" : -50,
+			"threshold" : 512
 		}
 	],
 	"renderer" : 

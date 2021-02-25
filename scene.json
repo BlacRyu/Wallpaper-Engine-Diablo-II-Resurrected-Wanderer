@@ -503,20 +503,20 @@
 				{
 					"file" : "effects/depth_map_custom/effect.json",
 					"id" : 218,
-					"name" : "Head Turning (random positiion)",
+					"name" : "Head Turning (Random Positions)",
 					"passes" : 
 					[
 						{
 							"constantshadervalues" : 
 							{
-								"1. strength/ distance" : 0.40000000000000002,
+								"1. strength/ distance" : 0.5,
 								"2. midlevel" : 0.25,
 								"3. normalize to center" : 1.0,
 								"4. invert depth map" : 0,
 								"5. Focal point" : 
 								{
-									"script" : "'use strict';\n\n/** Number of seconds to wait before glancing somewhere else. */\nconst MINGLANCEDELAY = .5;\nconst MAXGLANCEDELAY = 5;\n/** How quickly the eyes should turn towards the target position. */\nconst MINGLANCETURNSPEED = .5;\nconst MAXGLANCETURNSPEED = 1;\n\n\n/** How much time is left before selecting a new glance target. */\nlet nextGlanceDelay = MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n/** How quickly to turn towards the target position. */\nlet turnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n/** The screen position that the eyes are turning towards. (0,0) represents the top left corner. */\nlet glanceTarget = new Vec2(0.5, 0.5);\n\n/**\n * @param {Vec2} value - for property '5. Focal point'\n * @return {Vec2} - update current property value\n */\nexport function update(value) {\n\tnextGlanceDelay -= engine.frametime;\n\tif (nextGlanceDelay <= 0) {\n\t\tnextGlanceDelay += MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n\t\tturnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n\t\tglanceTarget = new Vec2(Math.random(), Math.random());\n\t}\n\n\tlet vecToTarget = glanceTarget.subtract(value);\n\tlet distToTarget = magnitude(vecToTarget);\n\n\tlet movement = distToTarget * turnSpeed * engine.frametime;\n\tmovement = Math.min(movement, distToTarget); // Don't move past the target\n\t\n\tlet oldPosition = value;\n\tlet newPosition = oldPosition.add(vecToTarget.normalize().multiply(movement));\n\t\n\t// console.log(`glance target: ${glanceTarget}\\nOld position: ${value}\\nNew position: ${newPosition}\\nVector to Target: ${vecToTarget}\\nDistance: ${distToTarget}`);\n\n\treturn newPosition;\n}\n\n\n\nfunction magnitude(vec) {\n\treturn (vec.x * vec.x + vec.y * vec.y);\n}",
-									"value" : "0.40673 0.57231"
+									"script" : "'use strict';\n\n/** Number of seconds to wait before glancing somewhere else. */\nconst MINGLANCEDELAY = 1;\nconst MAXGLANCEDELAY = 4;\n/** How quickly the eyes should turn towards the target position. */\nconst MINGLANCETURNSPEED = .4;\nconst MAXGLANCETURNSPEED = .6;\n\n/** Draws a sprite at the target glance position. */\nconst DEBUG = false;\n\n\n/** How much time is left before selecting a new glance target. */\nlet nextGlanceDelay = MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n/** How quickly to turn towards the target position. */\nlet turnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n/** The screen position that the eyes are turning towards. (0,0) represents the top left corner. */\nlet glanceTarget = new Vec2(0.5, 0.5);\n\n/**\n * @param {Vec2} value - for property '5. Focal point'\n * @return {Vec2} - update current property value\n */\nexport function update(value) {\n\tnextGlanceDelay -= engine.frametime;\n\tif (nextGlanceDelay <= 0) {\n\t\tnextGlanceDelay += MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n\t\tturnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n\t\tglanceTarget = new Vec2(Math.random(), Math.random());\n\t}\n\n\tlet vecToTarget = glanceTarget.subtract(value);\n\tlet distToTarget = magnitude(vecToTarget);\n\t\t\n\tlet oldPosition = value;\n\tlet newPosition = undefined;\n\n\tif (distToTarget > 0.00001) {\n\t\tlet movement = distToTarget * turnSpeed * engine.frametime;\n\t\tmovement = Math.min(movement, distToTarget); // Don't move past the target\n\n\t\tnewPosition = oldPosition.add(vecToTarget.normalize().multiply(movement));\n\t}\n\telse\n\t\tnewPosition = glanceTarget;\n\t\n\n\tif (DEBUG) {\n\t\t// console.log(`glance target: ${glanceTarget}\\nOld position: ${value}\\nNew position: ${newPosition}\\nVector to Target: ${vecToTarget}\\nDistance: ${distToTarget}`);\n\n\t\tlet debugSprite = thisScene.getLayer(\"_GLANCEDEBUG\");\n\t\tif (!debugSprite) {\n\t\t\tdebugSprite = thisScene.createLayer({\n\t\t\t\tname:\"_GLANCEDEBUG\",\n\t\t\t\timage:\"models/util/solidlayer.json\",\n\t\t\t\tsize:\"32 32\",\n\t\t\t\talignment:\"center\"})\n\t\t}\n\n\t\tdebugSprite.origin = new Vec3(engine.canvasSize.multiply(new Vec2(glanceTarget.x, 1 - glanceTarget.y)));\n\t\tconsole.log(debugSprite.origin);\n\t}\n\n\treturn newPosition;\n}\n\n\n\nfunction magnitude(vec) {\n\treturn (vec.x * vec.x + vec.y * vec.y);\n}",
+									"value" : "0.50000 0.50000"
 								}
 							},
 							"id" : 219,
@@ -837,69 +837,21 @@
 			"id" : 1522,
 			"instanceoverride" : 
 			{
-				"controlpoint1" : "0.00000 1397.23779 0.00000",
-				"id" : 1524
+				"alpha" : 0.60000002384185791,
+				"controlpoint1" : "-282.84644 71.54919 0.00000",
+				"controlpoint2" : "263.03760 72.45874 0.00000",
+				"count" : 0.40000000596046448,
+				"id" : 1524,
+				"lifetime" : 1.3999999761581421,
+				"speed" : 1.2000000476837158
 			},
 			"locktransforms" : false,
 			"name" : "Eye particles",
-			"origin" : "1920.00000 -128.00000 0.00000",
+			"origin" : "1920.00000 1195.74536 0.00000",
 			"parallaxDepth" : "1.00000 1.00000",
 			"particle" : "particles/eye_particles.json",
 			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"angles" : "0.00000 0.00000 0.00000",
-			"id" : 197,
-			"instanceoverride" : 
-			{
-				"id" : 7,
-				"size" : 2.0
-			},
-			"locktransforms" : false,
-			"name" : "Face_emitter",
-			"origin" : "1920.00000 512.00000 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/Face_emitter.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"alignment" : "center",
-			"alpha" : 1.0,
-			"angles" : "0.00000 0.00000 0.00000",
-			"animationlayers" : 
-			[
-				{
-					"additive" : false,
-					"animation" : 198,
-					"blend" : 5.0,
-					"id" : 38,
-					"name" : "Right sway",
-					"rate" : 0.5,
-					"visible" : true
-				}
-			],
-			"brightness" : 1.0,
-			"color" : "1.00000 1.00000 1.00000",
-			"colorBlendMode" : 0,
-			"copybackground" : true,
-			"id" : 19,
-			"image" : "models/Hood.json",
-			"ledsource" : false,
-			"locktransforms" : false,
-			"name" : "Hood",
-			"origin" : "1920.00000 512.00000 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"perspective" : false,
-			"scale" : "1.00000 1.00000 1.00000",
-			"size" : "4096.00000 4096.00000",
-			"solid" : true,
-			"visible" : 
-			{
-				"script" : "'use strict';\n\n// Enables play/pause in editor",
-				"value" : false
-			}
+			"visible" : true
 		},
 		{
 			"alignment" : "center",
@@ -1434,7 +1386,7 @@
 			"name" : "Falling embers bokeh",
 			"origin" : "1920.00000 1200.00000 0.00000",
 			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/falling_embers.json",
+			"particle" : "particles/Falling_embers_bokeh.json",
 			"scale" : "1.00000 1.00000 1.00000",
 			"visible" : true
 		},
@@ -1455,70 +1407,6 @@
 			"particle" : "particles/rising_embers.json",
 			"scale" : "1.00000 1.00000 1.00000",
 			"visible" : true
-		},
-		{
-			"angles" : "0.00000 0.00000 0.00000",
-			"id" : 288,
-			"instanceoverride" : 
-			{
-				"controlpoint2" : "0.00000 1024.00000 0.00000",
-				"id" : 289
-			},
-			"locktransforms" : false,
-			"name" : "Rising side embers",
-			"origin" : "1920.00000 -64.00000 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/Rising_side_embers.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"angles" : "0.00000 0.00000 0.08727",
-			"id" : 698,
-			"instanceoverride" : null,
-			"locktransforms" : false,
-			"name" : "Wildfire",
-			"origin" : "3035.65747 -30.12979 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/presets/wildfire.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"angles" : "0.00000 0.00000 -0.08727",
-			"id" : 866,
-			"instanceoverride" : null,
-			"locktransforms" : false,
-			"name" : "Wildfire",
-			"origin" : "737.01758 -26.79364 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/presets/wildfire.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"angles" : "0.00000 0.00000 0.00000",
-			"id" : 982,
-			"instanceoverride" : null,
-			"locktransforms" : false,
-			"name" : "Wildfire",
-			"origin" : "1945.82568 -66.53546 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/presets/wildfire.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
-		},
-		{
-			"angles" : "0.00000 0.00000 0.00000",
-			"id" : 1516,
-			"instanceoverride" : null,
-			"locktransforms" : false,
-			"name" : "Heat_waves",
-			"origin" : "1920.00000 0.00000 0.00000",
-			"parallaxDepth" : "1.00000 1.00000",
-			"particle" : "particles/Heat_waves.json",
-			"scale" : "1.00000 1.00000 1.00000",
-			"visible" : false
 		},
 		{
 			"alignment" : "center",
@@ -1587,9 +1475,9 @@
 						{
 							"constantshadervalues" : 
 							{
-								"animationspeed" : 0.14999999999999999,
+								"animationspeed" : 0.25,
 								"ratio" : 1.0,
-								"ripplestrength" : 0.10000000000000001,
+								"ripplestrength" : 0.14999999999999999,
 								"scale" : 1,
 								"scrolldirection" : 0.0,
 								"scrollspeed" : 0.59999999999999998
@@ -1600,6 +1488,36 @@
 								null,
 								"masks/waterripple_mask_e7c24e12109c16ce074e92e388ea2d48c1301419",
 								"effects/waterripplenormal"
+							]
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/fire/effect.json",
+					"id" : 2193,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"alpha" : 0.074999999999999997,
+								"colorend" : "1 0 0",
+								"colorstart" : "0.3686274509803922 0.08235294117647059 0",
+								"distortion" : 0.10000000000000001,
+								"feather" : 0.5,
+								"scale" : 4,
+								"smoothness" : 0,
+								"speed" : 1,
+								"threshold" : 0
+							},
+							"id" : 2194,
+							"textures" : 
+							[
+								null,
+								"masks/fire_mask_74284a24fe87b5f53e640d5808ef7ab7759a5d2b",
+								"util/clouds_256"
 							]
 						}
 					],

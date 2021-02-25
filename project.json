@@ -7,9 +7,10 @@
 		{
 			"footsteps" : 
 			{
+				"condition" : "false",
 				"index" : 0,
 				"order" : 100,
-				"text" : "Footsteps",
+				"text" : "Walking",
 				"type" : "bool",
 				"value" : false
 			},

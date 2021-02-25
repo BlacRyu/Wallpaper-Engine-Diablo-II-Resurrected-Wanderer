@@ -56,7 +56,7 @@
 			"distancemax" : "1920 1080 0",
 			"id" : 7,
 			"name" : "boxrandom",
-			"rate" : 10
+			"rate" : 5
 		}
 	],
 	"flags" : 1,
@@ -64,14 +64,14 @@
 	[
 		{
 			"id" : 2,
-			"max" : 24,
-			"min" : 16,
+			"max" : 16,
+			"min" : 2,
 			"name" : "lifetimerandom"
 		},
 		{
 			"exponent" : 3,
 			"id" : 3,
-			"max" : 120,
+			"max" : 160,
 			"min" : 20,
 			"name" : "sizerandom"
 		},
@@ -89,8 +89,8 @@
 		},
 		{
 			"id" : 6,
-			"max" : 0.14999999999999999,
-			"min" : 0.10000000000000001,
+			"max" : 0.10000000000000001,
+			"min" : 0.050000000000000003,
 			"name" : "alpharandom"
 		}
 	],
@@ -100,13 +100,11 @@
 	[
 		{
 			"drag" : 0.20000000000000001,
-			"gravity" : "0 -5 0",
+			"gravity" : "0 -10 0",
 			"id" : 8,
 			"name" : "movement"
 		},
 		{
-			"fadeintime" : 0.25,
-			"fadeouttime" : 0.25,
 			"id" : 9,
 			"name" : "alphafade"
 		},
@@ -124,6 +122,13 @@
 			"id" : 11,
 			"name" : "colorchange",
 			"starttime" : 0.20000000000000001
+		},
+		{
+			"frequencymax" : 50,
+			"frequencymin" : 30,
+			"id" : 12,
+			"name" : "oscillatealpha",
+			"scalemin" : 0.75
 		}
 	],
 	"renderer" : 
@@ -133,5 +138,5 @@
 			"name" : "sprite"
 		}
 	],
-	"starttime" : 5
+	"starttime" : 10
 }
