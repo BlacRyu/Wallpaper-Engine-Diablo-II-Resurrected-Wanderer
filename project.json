@@ -5,6 +5,14 @@
 	{
 		"properties" : 
 		{
+			"footsteps" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "Footsteps",
+				"type" : "bool",
+				"value" : false
+			},
 			"schemecolor" : 
 			{
 				"order" : 0,

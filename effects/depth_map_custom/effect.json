@@ -1,0 +1,19 @@
+{
+	"dependencies" : 
+	[
+		"materials/effects/depth_map_custom.json",
+		"shaders/effects/depth_map_custom.frag",
+		"shaders/effects/depth_map_custom.vert"
+	],
+	"editable" : true,
+	"group" : "localeffects",
+	"name" : "Depth Map (custom focus point)",
+	"passes" : 
+	[
+		{
+			"material" : "materials/effects/depth_map_custom.json"
+		}
+	],
+	"replacementkey" : "depth_map_custom",
+	"version" : 1
+}
