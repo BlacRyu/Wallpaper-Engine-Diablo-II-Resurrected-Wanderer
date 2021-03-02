@@ -1,0 +1,6 @@
+{
+	"bleedtransparentcolors" : true,
+	"clampuvs" : true,
+	"format" : "dxt5",
+	"nonpoweroftwo" : true
+}

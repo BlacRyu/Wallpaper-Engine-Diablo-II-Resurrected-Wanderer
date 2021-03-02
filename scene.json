@@ -1,8 +1,8 @@
 {
 	"camera" : 
 	{
-		"center" : "0.00000 0.00000 0.00000",
-		"eye" : "0.00000 0.00000 1.00000",
+		"center" : "0.00000 0.00000 -1.00000",
+		"eye" : "0.00000 0.00000 0.00000",
 		"up" : "0.00000 1.00000 0.00000"
 	},
 	"general" : 
@@ -173,6 +173,27 @@
 				"script" : "'use strict';\nconst Helpers = shared.OMGHelpers;\n\n/** @type {Interpolator[]} */\nlet activeInterps = [];\n\n\nexport function update() {\n\tactiveInterps.forEach((interp, index, array) => {\n\t\tinterp.update(engine.frametime + (shared.timeNudge || 0));\n\t});\n\tshared.timeNudge = 0;\n}\n\n\n\n\n/** Modifies an object property over a period of time */\nclass Interpolator {\n/** \n * @typedef {Object} InterpolatorParams\n * @property targetObject {object} - The object whose property value will be modified\n * @property propertyName {String} - The name of the property key to be modified\n * @property duration {Number} - How long it will take to reach the final value.\n * @property startValue {object} - An optional starting value. If not set, will use the properties existing value.\n * @property startOffset {object} - An optional offset to the starting value.\n * @property endValue {object} - The value the target variable will reach at the end of the duration. If not set, will use the properties existing value.\n * @property endOffset {object} - An optional offset to the end value.\n */\n\t/** \n\t * @param {InterpolatorParams} params - Object which allows parameters to be set by name. \n\t */\n\tconstructor(params) {\n\t\tthis.targetObject = params.targetObject;\n\t\tthis.propertyName = params.propertyName || \"origin\";\n\t\tthis.duration = params.duration || 1.0;\n\t\tthis.elapsedTime = 0;\n\t\tactiveInterps.push(this);\n\t\t\n\t\tif (params.startValue !== undefined)\n\t\t\tthis.startValue = Helpers.add(params.startValue, params.startOffset);\n\t\telse\n\t\t\tthis.startValue = Helpers.add(this.targetValue, params.startOffset);\n\t\tthis.targetValue = this.startValue;\n\t\t\n\t\tif (params.endValue !== undefined)\n\t\t\tthis.endValue = Helpers.add(params.endValue, params.endOffset);\n\t\telse\n\t\t\tthis.endValue = Helpers.add(this.targetValue, params.endOffset);\n\t}\n\n\t/** \n\t * Returns an array of interpolators currently affecting the given object \n\t */\n\tstatic getInterpolators(targetObject) {\n\t\tlet targetInterps = [];\n\t\tfor (let i of activeInterps) {\n\t\t\tif (i.targetObject === targetObject)\n\t\t\t\ttargetInterps.push(i);\n\t\t}\n\t}\n\n\t/**\n\t * Instantly destroys alls interpolators affecting the target object\n\t */\n\tstatic clearInterpolators(targetObject) {\n\t\tconsole.log(\"HI\");\n\t\tlet interps = Interpolator.getInterpolators(targetObject) || [];\n\t\tfor (let i of interps)\n\t\t\ti.destroy();\n\t}\n\n\tstatic finishInterpolators(targetObject) {\n\t\tlet interps = Interpolator.getInterpolators(targetObject) || [];\n\t\tfor (let i of interps) { \n\t\t\ti.finish();\n\t\t\ti.destroy();\n\t\t}\n\t}\n\n\tget targetValue() {return this.targetObject[this.propertyName]}\n\tset targetValue(newValue) {return this.targetObject[this.propertyName] = newValue}\n\n\tupdate(dt) {\n\t\tthis.elapsedTime += dt;\n\t\tif (this.elapsedTime > this.duration) {\n\t\t\tthis.finish();\n\t\t\tthis.destroy();\n\t\t}\n\t\telse\n\t\t\tthis.interpolate();\n\t}\n\n\tinterpolate() {\n\t\t// Perform interpolation here\n\t}\n\n\t/** Performs any final adjustments before this interpolator expires. */ \n\tfinish() {\n\t\tthis.targetValue = this.endValue;\n\t}\n\n\tdestroy() {\n\t\tactiveInterps.splice(activeInterps.indexOf(this), 1);\n\t}\n}\nshared.Interpolator = new Object();\nshared.Interpolator.getInterpolators = Interpolator.getInterpolators;\nshared.Interpolator.clearInterpolators = Interpolator.clearInterpolators;\nshared.Interpolator.finishInterpolators = Interpolator.finishInterpolators;\n\n\n/** Transitions from the start to end value at a constant rate. */\nclass LinearInterp extends Interpolator {\n\tinterpolate() {\n\t\tlet percentage = this.elapsedTime / this.duration;\n\t\tthis.targetValue = Helpers.lerp(this.startValue, this.endValue, percentage);\n\t}\n}\nshared.LinearInterp = LinearInterp;\n\n\n\n/** Transitions from the start to end value, moving slowly at first then speeding up. */\nclass EaseOutInterp extends Interpolator {\n\tinterpolate() {\n\t\tlet percentage = this.elapsedTime / this.duration;\n\t\tthis.targetValue = Helpers.lerp(this.startValue, this.endValue, percentage * (2 - percentage));\n\t}\n}\nshared.EaseOutInterp = EaseOutInterp;\n\n\n\n/** Transitions from the start to end value, moving slowly at first then speeding up. */\nclass EaseOutStrongInterp extends Interpolator {\n\tinterpolate() {\n\t\tlet percentage = this.elapsedTime / this.duration;\n\t\tthis.targetValue = Helpers.lerp(this.startValue, this.endValue, Math.pow(percentage-1, 3) + 1);\n\t}\n}\nshared.EaseOutStrongInterp = EaseOutStrongInterp;\n\n\n\n/** Transitions from the start to end value, moving slowly at first then speeding up. */\nclass EaseInInterp extends Interpolator {\n\tinterpolate() {\n\t\tlet percentage = this.elapsedTime / this.duration;\n\t\tthis.targetValue = Helpers.lerp(this.startValue, this.endValue, Math.pow(percentage, 2));\n\t}\n}\nshared.EaseInInterp = EaseInInterp;\n\n\n\n/** Transitions from the start to end value, moving slowly at first, quickly in the middle, then slow again at the end. */\nclass EaseInOutInterp extends Interpolator {\n\tinterpolate() {\n\t\tlet x = this.elapsedTime / this.duration;\n\t\tthis.targetValue = Helpers.lerp(this.startValue, this.endValue, x * x * (3 - 2 * x));\n\t}\n}\nshared.EaseInOutInterp = EaseInOutInterp;",
 				"value" : false
 			}
+		},
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : "0.00000 0.00000 0.00000",
+			"brightness" : 1.0,
+			"color" : "0.52941 0.52941 0.52941",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"id" : 131,
+			"image" : "models/Background.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "Background",
+			"origin" : "1920.00000 1304.78455 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "2.00000 2.00000 1.00000",
+			"size" : "2048.00000 2048.00000",
+			"solid" : true,
+			"visible" : true
 		},
 		{
 			"alignment" : "center",
@@ -424,6 +445,32 @@
 			[
 				{
 					"file" : "effects/pulse/effect.json",
+					"id" : 145,
+					"name" : "Darkness pulse",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 2
+							},
+							"constantshadervalues" : 
+							{
+								"amount" : 0,
+								"noiseamount" : 0.34999999999999998,
+								"noisespeed" : 0.02,
+								"power" : 2,
+								"tinthigh" : "0.28627450980392155 0.023529411764705882 0",
+								"tintlow" : "1 1 1"
+							},
+							"id" : 146,
+							"textures" : [ null, "util/noise" ]
+						}
+					],
+					"visible" : false
+				},
+				{
+					"file" : "effects/pulse/effect.json",
 					"id" : 364,
 					"name" : "Eye glow",
 					"passes" : 
@@ -431,11 +478,13 @@
 						{
 							"combos" : 
 							{
-								"BLENDMODE" : 7
+								"AUDIOPROCESSING" : 0,
+								"BLENDMODE" : 31
 							},
 							"constantshadervalues" : 
 							{
 								"amount" : 0.40000000000000002,
+								"audiobounds" : "0.5 1",
 								"bounds" : "0 1",
 								"noiseamount" : 0.29999999999999999,
 								"noisespeed" : 0.040000000000000001,
@@ -453,29 +502,105 @@
 							]
 						}
 					],
-					"visible" : true
+					"visible" : false
 				},
 				{
-					"file" : "effects/pulse/effect.json",
-					"id" : 54,
-					"name" : "",
+					"file" : "effects/waterripple/effect.json",
+					"id" : 118,
+					"name" : "Eye fluidity",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"animationspeed" : 0.050000000000000003,
+								"ripplestrength" : 0.074999999999999997,
+								"scale" : 5,
+								"scrolldirection" : -3.1415926535897931,
+								"scrollspeed" : 0.050000000000000003
+							},
+							"id" : 119,
+							"textures" : 
+							[
+								null,
+								"masks/waterripple_mask_b35a6c0fbb44d8c40eb518aba996554de019ec08",
+								"effects/waterripplenormal"
+							]
+						}
+					],
+					"visible" : false
+				},
+				{
+					"file" : "effects/shine/effect.json",
+					"id" : 445,
+					"name" : "Bright shine",
 					"passes" : 
 					[
 						{
 							"combos" : 
 							{
-								"BLENDMODE" : 4
+								"NOISE" : 1
 							},
 							"constantshadervalues" : 
 							{
-								"amount" : 0.050000000000000003,
-								"bounds" : "0.00000 1.00000",
-								"noiseamount" : 0.050000000000000003,
-								"tinthigh" : "0.28627450980392155 0 0",
-								"tintlow" : "1 1 1"
+								"noiseamount" : 0.40000000000000002,
+								"noisescale" : 1,
+								"noisespeed" : 0.5,
+								"raythreshold" : 0.25
 							},
-							"id" : 55,
-							"textures" : [ null, "util/noise" ]
+							"id" : 446,
+							"textures" : 
+							[
+								null,
+								"masks/shine_downsample2_mask_813e6993dd0ce433ba2e5aacccdf7f874a3b213f",
+								"util/clouds_256"
+							]
+						},
+						{
+							"combos" : 
+							{
+								"EDGES" : 2,
+								"SAMPLES" : 1
+							},
+							"constantshadervalues" : 
+							{
+								"color" : "1.00000 1.00000 1.00000",
+								"direction" : 1.5707963267948966,
+								"rayintensity" : 0.5,
+								"raylength" : 0.02,
+								"speed" : 0
+							},
+							"id" : 448
+						},
+						{
+							"combos" : 
+							{
+								"KERNEL" : 2
+							},
+							"constantshadervalues" : 
+							{
+								"scale" : "1 1"
+							},
+							"id" : 449
+						},
+						{
+							"combos" : 
+							{
+								"KERNEL" : 2,
+								"VERTICAL" : 1
+							},
+							"constantshadervalues" : 
+							{
+								"scale" : "1 1"
+							},
+							"id" : 450
+						},
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 9
+							},
+							"id" : 451
 						}
 					],
 					"visible" : false
@@ -515,7 +640,7 @@
 								"4. invert depth map" : 0,
 								"5. Focal point" : 
 								{
-									"script" : "'use strict';\n\n/** Number of seconds to wait before glancing somewhere else. */\nconst MINGLANCEDELAY = 1;\nconst MAXGLANCEDELAY = 4;\n/** How quickly the eyes should turn towards the target position. */\nconst MINGLANCETURNSPEED = .4;\nconst MAXGLANCETURNSPEED = .6;\n\n/** Draws a sprite at the target glance position. */\nconst DEBUG = false;\n\n\n/** How much time is left before selecting a new glance target. */\nlet nextGlanceDelay = MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n/** How quickly to turn towards the target position. */\nlet turnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n/** The screen position that the eyes are turning towards. (0,0) represents the top left corner. */\nlet glanceTarget = new Vec2(0.5, 0.5);\n\n/**\n * @param {Vec2} value - for property '5. Focal point'\n * @return {Vec2} - update current property value\n */\nexport function update(value) {\n\tnextGlanceDelay -= engine.frametime;\n\tif (nextGlanceDelay <= 0) {\n\t\tnextGlanceDelay += MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n\t\tturnSpeed = MINGLANCETURNSPEED + Math.random() * (MAXGLANCETURNSPEED - MINGLANCETURNSPEED);\n\t\tglanceTarget = new Vec2(Math.random(), Math.random());\n\t}\n\n\tlet vecToTarget = glanceTarget.subtract(value);\n\tlet distToTarget = magnitude(vecToTarget);\n\t\t\n\tlet oldPosition = value;\n\tlet newPosition = undefined;\n\n\tif (distToTarget > 0.00001) {\n\t\tlet movement = distToTarget * turnSpeed * engine.frametime;\n\t\tmovement = Math.min(movement, distToTarget); // Don't move past the target\n\n\t\tnewPosition = oldPosition.add(vecToTarget.normalize().multiply(movement));\n\t}\n\telse\n\t\tnewPosition = glanceTarget;\n\t\n\n\tif (DEBUG) {\n\t\t// console.log(`glance target: ${glanceTarget}\\nOld position: ${value}\\nNew position: ${newPosition}\\nVector to Target: ${vecToTarget}\\nDistance: ${distToTarget}`);\n\n\t\tlet debugSprite = thisScene.getLayer(\"_GLANCEDEBUG\");\n\t\tif (!debugSprite) {\n\t\t\tdebugSprite = thisScene.createLayer({\n\t\t\t\tname:\"_GLANCEDEBUG\",\n\t\t\t\timage:\"models/util/solidlayer.json\",\n\t\t\t\tsize:\"32 32\",\n\t\t\t\talignment:\"center\"})\n\t\t}\n\n\t\tdebugSprite.origin = new Vec3(engine.canvasSize.multiply(new Vec2(glanceTarget.x, 1 - glanceTarget.y)));\n\t\tconsole.log(debugSprite.origin);\n\t}\n\n\treturn newPosition;\n}\n\n\n\nfunction magnitude(vec) {\n\treturn (vec.x * vec.x + vec.y * vec.y);\n}",
+									"script" : "'use strict';\nconst EaseInOutInterp = shared.EaseInOutInterp;\n\n/** Number of seconds to wait before glancing somewhere else. */\nconst MINGLANCEDELAY = 2.5;\nconst MAXGLANCEDELAY = 6;\n\n/** Draws a sprite at the target glance position. */\nconst DEBUG = false;\n\n\n\n/** How much time is left before selecting a new glance target. */\nlet nextGlanceDelay = MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n\n/** The screen position that the eyes are turning towards. (0,0) represents the top left corner. */\nlet glanceTarget = new Vec2(0.5, 0.5);\n\n\n/**\n * @param {Vec2} value - for property '5. Focal point'\n * @return {Vec2} - update current property value\n */\nexport function update(value) {\n\tnextGlanceDelay -= engine.frametime;\n\tif (nextGlanceDelay <= 0) {\n\t\tnextGlanceDelay += MINGLANCEDELAY + Math.random() * (MAXGLANCEDELAY - MINGLANCEDELAY);\n\t\tif (Math.random() < 0.5) // 50% chance to glance around (favoring bottom half of the screen). 50% chance to bring eyes to center.\n\t\t\tglanceTarget = new Vec2(Math.random(), Math.sqrt(Math.random()));\n\t\telse\n\t\t\tglanceTarget = new Vec2(0.5, 0.5);\n\n\t\tnew EaseInOutInterp({\n\t\t\ttargetObject: thisObject,\n\t\t\tpropertyName: \"5. Focal point\",\n\t\t\tduration: nextGlanceDelay,\n\t\t\tendValue: glanceTarget\n\t\t});\n\t}\n\t\n\n\tif (DEBUG) {\n\t\tlet debugTargetSprite = thisScene.getLayer(\"_DEBUG_GLANCETARGET\");\n\t\tlet debugCurrentSprite = thisScene.getLayer(\"_DEBUG_GLANCECURRENT\");\n\t\tif (!debugTargetSprite) {\n\t\t\tdebugTargetSprite = thisScene.createLayer({\n\t\t\t\tname:\"_DEBUG_GLANCETARGET\",\n\t\t\t\timage:\"models/util/solidlayer.json\",\n\t\t\t\tsize:\"32 32\",\n\t\t\t\talignment:\"center\"})\n\t\t}\n\t\tif (!debugCurrentSprite) {\n\t\t\tdebugCurrentSprite = thisScene.createLayer({\n\t\t\t\tname:\"_DEBUG_GLANCECURRENT\",\n\t\t\t\timage:\"models/util/solidlayer.json\",\n\t\t\t\tsize:\"32 32\",\n\t\t\t\tcolor:\".25 .75 1\",\n\t\t\t\talignment:\"center\"})\n\t\t}\n\n\t\tdebugTargetSprite.origin = new Vec3(engine.canvasSize.multiply(new Vec2(glanceTarget.x, 1 - glanceTarget.y)));\n\t\tdebugCurrentSprite.origin = new Vec3(engine.canvasSize.multiply(new Vec2(value.x, 1 - value.y)));\n\t}\n}\n\n\n\nfunction magnitude(vec) {\n\treturn (vec.x * vec.x + vec.y * vec.y);\n}",
 									"value" : "0.50000 0.50000"
 								}
 							},
@@ -526,53 +651,29 @@
 					"visible" : true
 				},
 				{
-					"file" : "effects/waterflow/effect.json",
-					"id" : 93,
-					"name" : "Eye flow",
+					"file" : "effects/motionblur/effect.json",
+					"id" : 156,
+					"name" : "",
 					"passes" : 
 					[
 						{
 							"constantshadervalues" : 
 							{
-								"speed" : 0.25,
-								"strength" : 1
+								"rate" : 0.17499999999999999
 							},
-							"id" : 94,
+							"id" : 157,
 							"textures" : 
 							[
 								null,
-								"masks/waterflow_mask_e3c57b1acc926990acd97f240abcc41d1a37f712",
-								"effects/waterflowphase"
+								"_rt_FullCompoBuffer1_13_156",
+								"masks/motionblur_accumulation_mask_b02c828e5a8dfe14853f969757a645b7c365d440"
 							]
+						},
+						{
+							"id" : 26
 						}
 					],
 					"visible" : false
-				},
-				{
-					"file" : "effects/waterripple/effect.json",
-					"id" : 118,
-					"name" : "Eye fluidity",
-					"passes" : 
-					[
-						{
-							"constantshadervalues" : 
-							{
-								"animationspeed" : 0.050000000000000003,
-								"ripplestrength" : 0.074999999999999997,
-								"scale" : 5,
-								"scrolldirection" : -3.1415926535897931,
-								"scrollspeed" : 0.050000000000000003
-							},
-							"id" : 119,
-							"textures" : 
-							[
-								null,
-								"masks/waterripple_mask_b35a6c0fbb44d8c40eb518aba996554de019ec08",
-								"effects/waterripplenormal"
-							]
-						}
-					],
-					"visible" : true
 				}
 			],
 			"id" : 13,
@@ -886,16 +987,33 @@
 			"id" : 1522,
 			"instanceoverride" : 
 			{
+				"controlpoint1" : "-281.02820 83.28137 0.00000",
+				"controlpoint2" : "258.14282 85.13684 0.00000",
+				"id" : null
+			},
+			"locktransforms" : true,
+			"name" : "Eye glows",
+			"origin" : "1920.00000 1195.74536 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/eye_glows.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : false
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 290,
+			"instanceoverride" : 
+			{
 				"alpha" : 0.60000002384185791,
 				"controlpoint1" : "-300.59900 77.94030 0.00000",
 				"controlpoint2" : "274.39941 80.97998 0.00000",
 				"count" : 0.40000000596046448,
-				"id" : 1524,
+				"id" : null,
 				"lifetime" : 1.3999999761581421,
 				"speed" : 1.2000000476837158
 			},
 			"locktransforms" : false,
-			"name" : "Eye particles",
+			"name" : "Eye embers",
 			"origin" : "1920.00000 1195.74536 0.00000",
 			"parallaxDepth" : "1.00000 1.00000",
 			"particle" : "particles/eye_particles.json",
@@ -1021,7 +1139,7 @@
 							},
 							"lockangle" : true,
 							"locklength" : true,
-							"value" : 12.206300000000056
+							"value" : 7.038819999999987
 						},
 						{
 							"back" : 
@@ -1075,7 +1193,7 @@
 							},
 							"lockangle" : true,
 							"locklength" : true,
-							"value" : -12.205809999999929
+							"value" : -7.038569999999936
 						},
 						{
 							"back" : 
